@@ -47,11 +47,12 @@
       </div>
     </nav>
     <div class="container text-center">
-      <h1>STRIVE CRUD AGENDA</h1>
+      <h1>Amazon</h1>
       <h2 class="mt-5">
-        Current events
+        Produkts
       </h2>
-      <div id="eventsDiv">
+      <div id="eventsDiv" class="row mb-3">
+         
         <!-- empty at load -->
       </div>
     </div>
@@ -65,22 +66,24 @@ console.log(events)
           events.forEach((e) => {
             let event = document.createElement("div");
             event.innerHTML += `
-            <div class="card" style="width: 18rem;">
+            <div class="col-4 mb-3">
+            <div class="card" style="width: 12rem;">
   <img src="${e.imageUrl}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">"Id :" +${e.userId}</h5>
-    <h5 class="card-title">"Brand :" + ${e.brand}</h5>
-    <p class="card-title">"Description +" ${e.desciption}</p>
+    <h5 class="card-title">Id : ${e.userId}</h5>
+    <h5 class="card-title">Brand :  ${e.brand}</h5>
+    <p class="card-title">Description :  ${e.desciption}</p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">"Price : " + ${e.price}</li>
-    <li class="list-group-item">${e._id}}</li>
-    <li class="list-group-item">${e.createdAt}</li>
-    <li class="list-group-item">${e.updatedAt}</li>
+    <li class="list-group-item">Price :  ${e.price}</li>
+    <li class="list-group-item">Produkt id : ${e._id}}</li>
+    <li class="list-group-item">Created : ${e.createdAt}</li>
+    <li class="list-group-item">Updated : ${e.updatedAt}</li>
     
     <li class="list-group-item">${e.__v}</li>
     </ul>
   
+</div>
 </div>
              `;
             eventsDiv.appendChild(event);
