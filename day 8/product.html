@@ -35,59 +35,79 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/"
-              >Home <span class="sr-only">(current)</span></a
-            >
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="backofffice.html">Backoffice</a>
+            <a class="nav-link" href="./backoffice.html">Backoffice</a>
           </li>
         </ul>
       </div>
     </nav>
     <div class="container text-center">
-      <h1>Amazon</h1>
-      <h2 class="mt-5">
-        Produkts
-      </h2>
-      <div id="eventsDiv" class="row mb-3">
-         
-        <!-- empty at load -->
+      <h1>STRIVE CRUD AGENDA</h1>
+      <h2>Event details</h2>
+      <div class="my-5" id="details">
+        <!-- EMPTY AT LOAD -->
       </div>
+      <input
+        type="button"
+        class="btn btn-info"
+        value="Edit"
+        onclick="handleEdit()"
+      />
+      <input
+        type="button"
+        class="btn btn-danger"
+        value="Remove"
+        onclick="handleDelete()"
+      />
     </div>
+
     <script src="./code.js"></script>
     <script>
+      let id;
+
       window.onload = async () => {
-        let getProduct = document.querySelector("#eventsDiv");
-        let product = await get();
-console.log(product)
-        if (product.length > 0) {
-          product.forEach((e) => {
-            let createProduct = document.createElement("div");
-            createProduct.innerHTML += `
-            <div class="col-4 mb-3 height:20rem">
+        let urlParams = new URLSearchParams(window.location.search);
+        id = urlParams.get("id");
+        console.log("ID OF THE EVENT IS", id);
+        let event = await getProduct(id);
+        // console.log("EVENT DETAILS", event);
+        let detailsDiv = document.querySelector("#details");
+        detailsDiv.innerHTML = `
+        <div class="col-4 mb-3 height:20rem">
             <div class="card" style="width: 12rem;  height:28rem">
-  <a href="product.html?id=${e._id}"><img src="${e.imageUrl}" class="card-img-top" alt="..."></a>
+ <img src="${event.imageUrl}" class="card-img-top" alt="...">
   <div class="card-body">
-    <a href="product.html?id=${e._id}"> <h5 class="card-title">Id : ${e.userId}</h5></a>
-      <a href="product.html?id=${e._id}"> <h5 class="card-title">Brand :  ${e.brand}</h5></a>
-        <a href="product.html?id=${e._id}"> <p class="card-title">Desc :  ${e.description}</p></a>
+    <h5 class="card-title">Id : ${event.userId}</h5>
+      <h5 class="card-title">Brand :  ${event.brand}</h5>
+        <p class="card-title">Desc :  ${event.description}</p>
   </div>
   <ul class="list-group list-group-flush">
-    <a href="product.html?id=${e._id}"> <li class="list-group-item">Price :  ${e.price}</li></a>
-      <a href="product.html?id=${e._id}"><li class="list-group-item">Produkt id : ${e._id}}</li></a>
+     <li class="list-group-item">Price :  ${event.price}</li>
+     <li class="list-group-item">Produkt id : ${event._id}}</li>
      
     </ul>
   
 </div>
 </div>
-             `;
-            getProduct.appendChild(createProduct);
-          });
+        `;
+      };
+
+      const handleDelete = async () => {
+        // delete operation, I will need the id
+        const response = await deleteProduct(id);
+        if (response.ok) {
+          alert("Event deleted successfully");
+          window.location.assign("new.html");
         } else {
-          getProduct.innerHTML = "<h1>No Products</h1>";
+          alert("Event has NOT been deleted successfully");
         }
+      };
+
+      const handleEdit = () => {
+        window.location.href = "backofffice.html?id=" + id;
       };
     </script>
 
