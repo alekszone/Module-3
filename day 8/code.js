@@ -2,7 +2,9 @@ const link = "https://striveschool.herokuapp.com/api/product/";
 let encoded = window.btoa('user2:4Lr9nqHZZZDNUy7L')
 let get = async () => {
   let response = await fetch(link, {
+    method: "GET",
     headers: new Headers({
+      "Content-Type": "application/json",
       "Authorization":"Basic " + encoded
     }),
 });
@@ -11,6 +13,7 @@ return await response.json();
 const getProduct = async (id) => {
   let response = await fetch(link + id, {
     headers: new Headers({
+      "Content-Type": "application/json",
     "Authorization":"Basic " + encoded
   }),
 })

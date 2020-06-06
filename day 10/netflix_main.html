@@ -405,13 +405,29 @@
 window.onload = async () => {
         let getProduct = document.querySelector("#carousel1");
         let product = await get();
-console.log(product)
+         
+         console.log(product)
+
+         let createProduct = document.createElement("div");
+
         if (product.length > 0) {
-          product.forEach((e) => {
+          product.forEach(img => {
+            let get = async () => {
+    let response = await fetch("https://striveschool.herokuapp.com/api/movies/" + img ,{
+     
+    headers: new Headers({
+     
+      "Authorization":"Basic " + btoa("user2:4Lr9nqHZZZDNUy7L")
+    })
+  });
+  return await response.json();
+console.log(response)
+}
+
             let createProduct = document.createElement("div");
             createProduct.innerHTML += `
             <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-2">
-                  <img class="img-fluid mx-auto d-block" src="${e[0].imageUrl}" alt="slide 7">
+                  <img class="img-fluid mx-auto d-block" src="${img.imageUrl}" alt="slide 7">
               </div>
              `;
             getProduct.appendChild(createProduct);

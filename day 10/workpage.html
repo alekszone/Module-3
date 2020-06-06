@@ -197,12 +197,13 @@ handleSubmit = () => {
         };
         console.log("MYEVENT", product);
         
-        let response;
+        let response = await save(product);
+        console.log(response)
 
         // if (id) {
         //   response = await editProduct(id, product);
         // } else {
-          response = await save(product);
+         
         // }
 
 
@@ -216,7 +217,7 @@ handleSubmit = () => {
           alert("Event NOT created succesfully");
         }
       
-      console.log( product)
+ 
 };
       
 </script>
